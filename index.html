@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt" style="scroll-behavior: smooth;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#E59B17">
+  <title>Nkisi - Dicionário Multilíngue Africano</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    :root {
+      --africa-orange: #E59B17;
+      --africa-brown: #5C3D2E;
+      --africa-red: #B20600;
+      --africa-green: #005C53;
+    }
+
+    body {
+      font-family: 'Ubuntu', system-ui, sans-serif;
+      background: linear-gradient(45deg, #fef6e4 0%, #f3d2c1 100%);
+      color: var(--africa-brown);
+    }
+
+    .navbar {
+      background: linear-gradient(to right, var(--africa-brown), var(--africa-red)) !important;
+      border-bottom: 4px solid var(--africa-orange);
+    }
+
+    .africa-pattern {
+      background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 0L100 50 50 100 0 50z" fill="%23E59B17" opacity="0.1"/></svg>');
+    }
+
+    .card-word {
+      background: rgba(255, 255, 255, 0.9) !important;
+      border: 2px solid var(--africa-orange);
+      border-radius: 15px;
+      transition: transform 0.3s;
+    }
+
+    .card-word:hover {
+      transform: translateY(-5px);
+    }
+
+    .btn-africa {
+      background: var(--africa-green);
+      color: white;
+      border-radius: 25px;
+      padding: 10px 25px;
+    }
+
+    .kente-border {
+      border: 4px solid;
+      border-image: linear-gradient(45deg, var(--africa-orange), var(--africa-red), var(--africa-brown)) 1;
+    }
+
+    footer {
+      background: var(--africa-brown);
+      color: #fff;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+
+    .donation-banner {
+      background: var(--africa-orange);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .language-input {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body class="africa-pattern">
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAYFJREFUeNpi/P//PwMlgAWKQ4lUcwhdAxMTkz8DAwMrnAYYGBgYqA7+Q7FBS0uL/6NHjxhOnTrFQHMLoGBfXx/Dw4cPGYSEhBhOnz5NewuYoTgvL4/h8ePHDBISEgxnzpyhuQVQkJmZyfDkyRMGKSkphrNnz9Legv9QnJ6ezvD06VMGaWlphnPnztHeAqh3k5KSGJ49e8YgIyPDcP78edpbAAWxsbEMz58/Z5CVlWW4cOEC7S34D8WRkZEML168YJCTk2O4dOkS7S2AguDgYIaXL18yyMvLM1y+fJn2FkBBQEAAw6tXrxgUFRUZrly5QnsLoMDX15fh9evXDMrKygxXr16lvQVQ4OXlxfDmzRsGFRUVhmvXrtHeAijw8PBgePv2LYOqqirD9evXaW8BFHh7ezO8e/eOQU1NjeHGjRu0twAKfHx8GN6/f8+grq7OcPPmTdpbAAV+fn4MHz58YNDQ0GC4desW7S2AgoCAAIaPHz8yaGpqMty+fZv2FkBBYGAgw6dPnxh0dHQY7ty5Q3sLoCA4OJjh8+fPDLq6ugx3796lvQVQEBISwvDlyxcGPT09hnv37tHeAigICwtj+Pr1K4O+vj7D/fv3aW8BFAwMDAwMAAA2ZhH5/wvZWwAAAABJRU5ErkJggg==" 
+             width="30" height="30" class="d-inline-block align-top" alt="Logo">
+        Nkisi - Dicionário Africano
+      </a>
+    </div>
+  </nav>
+
+  <main class="container py-4">
+    <h1 class="text-center mb-4 kente-border py-2">Nkisi - Sabedoria Multilíngue</h1>
+
+    <div class="card card-word shadow-lg mb-4">
+      <div class="card-body">
+        <div class="input-group">
+          <input type="text" id="searchInput" class="form-control form-control-lg" 
+                 placeholder="Buscar em Português..." aria-label="Buscar palavra">
+          <button class="btn btn-africa" onclick="searchWord()">Tamba</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="result" class="row g-3"></div>
+
+    <div class="donation-banner text-center">
+      <h5>Ajude a preservar nossas línguas!</h5>
+      <p>Suporte este projeto com sua doação ou compartilhando conhecimento</p>
+      <button class="btn btn-light mx-2" onclick="showDonationOptions()">Doar</button>
+      <button class="btn btn-light" onclick="showIdeaForm()">Enviar Ideia</button>
+    </div>
+
+    <section class="card card-word mt-5">
+      <div class="card-body">
+        <h3 class="mb-4">Adicionar Nova Palavra</h3>
+        <form id="wordForm">
+          <div class="row g-3">
+            <div class="col-md-3">
+              <input class="form-control language-input" placeholder="Português" id="pt" required>
+            </div>
+            <div class="col-md-3">
+              <input class="form-control language-input" placeholder="Kimbundu" id="kb" required>
+            </div>
+            <div class="col-md-3">
+              <input class="form-control language-input" placeholder="Umbundu" id="ub" required>
+            </div>
+            <div class="col-md-3">
+              <input class="form-control language-input" placeholder="Kikongo" id="kg" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-africa mt-3">Kokolisa!</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="card card-word mt-5" id="sobre">
+      <div class="card-body">
+        <h2>Nzila - Nosso Caminho</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <h5 class="mt-4">Mussamo</h5>
+            <p>Nkisi é um projeto comunitário que nasceu nas ruas de Luanda, criado por jovens linguistas comprometidos com a preservação das línguas bantu.</p>
+            <h5 class="mt-4">Metas</h5>
+            <ul class="list-unstyled">
+              <li>• Digitalizar 10,000 palavras até 2025</li>
+              <li>• Adicionar 5 novas línguas</li>
+              <li>• Criar plataforma de aprendizagem colaborativa</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h5 class="mt-4">Kutalakuana</h5>
+            <form id="contactForm">
+              <div class="mb-3">
+                <input type="email" class="form-control" placeholder="Seu email" required>
+              </div>
+              <div class="mb-3">
+                <textarea class="form-control" rows="4" placeholder="Sua mensagem..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-africa">Tumiza</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center">
+    <div class="container">
+      <div class="mb-3">
+        <a href="#" class="text-white mx-2">Facebook</a>
+        <a href="#" class="text-white mx-2">Instagram</a>
+        <a href="#" class="text-white mx-2">TikTok</a>
+      </div>
+      <p>&copy; 2025 Nkisi - Projeto Comunitário<br>
+      Kuata Kwevangelo | +244 948 952 432</p>
+    </div>
+  </footer>
+
+  <script>
+    let words = JSON.parse(localStorage.getItem('dictionary')) || [
+      { pt: "Casa", kb: "Nzo", ub: "Ombwa", kg: "Nkumbu" },
+    { pt: "Árvore", kb: "Mbwila", ub: "Ombwila", kg: "Mpo" },
+    { pt: "Fogo", kb: "Luz", ub: "Omulungu", kg: "Lia" },
+    { pt: "Água", kb: "Mambu", ub: "Munda", kg: "Muntu" },
+    { pt: "Amigo", kb: "Nkanda", ub: "Tata", kg: "Nsona" },
+    { pt: "Escola", kb: "Shenda", ub: "Esquela", kg: "Nzo" },
+    { pt: "Comida", kb: "Veta", ub: "Eza", kg: "Kuna" },
+    { pt: "Trabalho", kb: "Tala", ub: "Kama", kg: "Dya" },
+    { pt: "Caminho", kb: "Kanda", ub: "Onda", kg: "Nkongo" },
+    { pt: "Família", kb: "Beto", ub: "Ubu", kg: "Mvu" },
+    { pt: "Saúde", kb: "Kuwela", ub: "Vukala", kg: "Mpa" },
+    { pt: "Dinheiro", kb: "Kimbundu", ub: "Tatu", kg: "Kwaku" },
+    { pt: "Cidade", kb: "Dondo", ub: "Kibu", kg: "Luanda" },
+    { pt: "País", kb: "Nzambi", ub: "Kapi", kg: "Nzo" },
+    { pt: "Sorriso", kb: "Kivota", ub: "Viva", kg: "Nda" },
+    { pt: "Coração", kb: "Bomba", ub: "Vimbundu", kg: "Boma" },
+    { pt: "Sol", kb: "Joka", ub: "Ombako", kg: "Tsunami" },
+    { pt: "Lua", kb: "Luna", ub: "Ombu", kg: "Lunga" },
+    { pt: "Feliz", kb: "Njoki", ub: "Fuka", kg: "Misa" },
+    { pt: "Triste", kb: "Mweno", ub: "Ombue", kg: "Kubira" }
+      // ... (mantenha a lista original de palavras)
+    ];
+
+    function searchWord() {
+      const term = document.getElementById('searchInput').value.toLowerCase();
+      const result = document.getElementById('result');
+      result.innerHTML = words.filter(word => word.pt.toLowerCase().includes(term))
+        .map(word => `
+          <div class="col-md-6">
+            <div class="card card-word mb-3">
+              <div class="card-body">
+                <h5 class="card-title">${word.pt}</h5>
+                <div class="row">
+                  <div class="col">
+                    <span class="badge bg-primary">Kimbundu</span>
+                    <p>${word.kb}</p>
+                  </div>
+                  <div class="col">
+                    <span class="badge bg-success">Umbundu</span>
+                    <p>${word.ub}</p>
+                  </div>
+                  <div class="col">
+                    <span class="badge bg-warning">Kikongo</span>
+                    <p>${word.kg}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join('') || '<p class="text-center">Nenhuma palavra encontrada. Kukula!</p>';
+    }
+
+    document.getElementById('wordForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const newWord = {
+        pt: document.getElementById('pt').value,
+        kb: document.getElementById('kb').value,
+        ub: document.getElementById('ub').value,
+        kg: document.getElementById('kg').value
+      };
+      
+      if (Object.values(newWord).every(val => val)) {
+        words.push(newWord);
+        localStorage.setItem('dictionary', JSON.stringify(words));
+        this.reset();
+        searchWord();
+        showToast('Palavra adicionada com sucesso!');
+      }
+    });
+
+    function showDonationOptions() {
+      // Implementar lógica para opções de doação
+      alert("Muito obrigado pelo apoio!\nOpções de doação:\n1. Transferência bancária\n2. Unitel Money\n3. Airtel Money");
+    }
+
+    function showIdeaForm() {
+      const idea = prompt("Kudia maza - Compartilhe sua ideia ou correção:");
+      if (idea) {
+        // Implementar lógica para salvar ideia
+        showToast('Ideia recebida! Kuetu tukulupale!');
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'position-fixed bottom-0 end-0 p-3';
+      toast.innerHTML = `
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      `;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('Service Worker registrado'))
+          .catch(err => console.log('Erro:', err));
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "short_name": "Nkisi",
+  "name": "Nkisi - Dicionário Africano",
+  "description": "Plataforma colaborativa para preservação de línguas bantu",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#5C3D2E",
+  "display": "standalone",
+  "theme_color": "#E59B17",
+  "orientation": "portrait"
+}
