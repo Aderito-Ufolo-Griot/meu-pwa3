@@ -1,47 +1,67 @@
-const CACHE_NAME = 'dicionario-africano-cache-v1';
-const urlsToCache = [
-  '/',
-  'index.html',
-  'style.css',
-  'script.js',
-  'manifest.json',
-  'assets/icons/icon-192.png',
-  'assets/icons/icon-512.png'
-];
-
-// Instala o service worker e armazena os arquivos em cache
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Arquivos em cache:');
-        return cache.addAll(urlsToCache);
-      })
-  );
-});
-
-// Ativa o service worker
-self.addEventListener('activate', (event) => {
-  const cacheWhitelist = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (!cacheWhitelist.includes(cacheName)) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
-});
-
-// Busca os arquivos do cache ou faz a requisição se não houver cache
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        return response || fetch(event.request);
-      })
-  );
-});
+{
+  "name": "Dicionário de Kimbundu-Portugues",
+  "short_name": "Kimbundu",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "sizes": "114x114",
+      "src": "https://github.githubassets.com/assets/apple-touch-icon-114x114-09ce42d3ca4b.png"
+    },
+    {
+      "sizes": "120x120",
+      "src": "https://github.githubassets.com/assets/apple-touch-icon-120x120-92bd46d04241.png"
+    },
+    {
+      "sizes": "144x144",
+      "src": "https://github.githubassets.com/assets/apple-touch-icon-144x144-b882e354c005.png"
+    },
+    {
+      "sizes": "152x152",
+      "src": "https://github.githubassets.com/assets/apple-touch-icon-152x152-5f777cdc30ae.png"
+    },
+    {
+      "sizes": "180x180",
+      "src": "https://github.githubassets.com/assets/apple-touch-icon-180x180-a80b8e11abe2.png"
+    },
+    {
+      "sizes": "57x57",
+      "src": "https://github.githubassets.com/assets/apple-touch-icon-57x57-22f09f5b3a64.png"
+    },
+    {
+      "sizes": "60x60",
+      "src": "https://github.githubassets.com/assets/apple-touch-icon-60x60-19037ac897bf.png"
+    },
+    {
+      "sizes": "72x72",
+      "src": "https://github.githubassets.com/assets/apple-touch-icon-72x72-e090c8a282d0.png"
+    },
+    {
+      "sizes": "76x76",
+      "src": "https://github.githubassets.com/assets/apple-touch-icon-76x76-a4523d80afb4.png"
+    },
+    {
+      "src": "https://github.githubassets.com/assets/app-icon-192-bcc967ab9829.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://github.githubassets.com/assets/app-icon-512-7f9c4ff2e960.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.github.android",
+      "id": "com.github.android"
+    }
+  ],
+  "theme_color": "#1fd7eb",
+  "background_color": "#1ea7e7",
+  "categories": [
+    "education"
+  ]
+}
